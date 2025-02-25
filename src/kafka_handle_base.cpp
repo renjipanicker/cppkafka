@@ -48,7 +48,7 @@ namespace cppkafka {
 const milliseconds KafkaHandleBase::DEFAULT_TIMEOUT{1000};
 
 KafkaHandleBase::KafkaHandleBase(Configuration config) 
-: timeout_ms_(DEFAULT_TIMEOUT), config_(move(config)), handle_(nullptr, HandleDeleter(this)), destroy_flags_(0) {
+: timeout_ms_(DEFAULT_TIMEOUT), config_(std::move(config)), handle_(nullptr, HandleDeleter(this)), destroy_flags_(0) {
     auto& maybe_config = config_.get_default_topic_configuration();
     if (maybe_config) {
         maybe_config->set_as_opaque();
@@ -102,7 +102,7 @@ Topic KafkaHandleBase::get_topic(const string& name) {
 
 Topic KafkaHandleBase::get_topic(const string& name, TopicConfiguration config) {
     auto handle = config.get_handle();
-    save_topic_config(name, move(config));
+    save_topic_config(name, std::move(config));
     return get_topic(name, rd_kafka_topic_conf_dup(handle));
 }
 
@@ -159,7 +159,7 @@ GroupInformation KafkaHandleBase::get_consumer_group(const string& name,
     if (result.empty()) {
         throw ElementNotFound("consumer group information", name);
     }
-    return move(result[0]);
+    return std::move(result[0]);
 }
 
 vector<GroupInformation> KafkaHandleBase::get_consumer_groups() {
@@ -256,7 +256,7 @@ vector<GroupInformation> KafkaHandleBase::fetch_consumer_groups(const char* name
 
 void KafkaHandleBase::save_topic_config(const string& topic_name, TopicConfiguration config) {
     lock_guard<mutex> _(topic_configurations_mutex_);
-    auto iter = topic_configurations_.emplace(topic_name, move(config)).first;
+    auto iter = topic_configurations_.emplace(topic_name, std::move(config)).first;
     iter->second.set_as_opaque();
 }
 

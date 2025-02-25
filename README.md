@@ -56,7 +56,6 @@ In order to compile _cppkafka_ you need:
 * _librdkafka >= 0.9.4_
 * _CMake >= 3.9.2_
 * A compiler with good C++11 support (e.g. gcc >= 4.8). This was tested successfully on _g++ 4.8.3_. 
-* The boost library (for boost::optional)
 
 Now, in order to build, just run:
 
@@ -73,13 +72,10 @@ make install
 The following cmake options can be specified:
 * `RDKAFKA_ROOT` : Specify a different librdkafka install directory.
 * `RDKAFKA_DIR` : Specify a different directory where the RdKafkaConfig.cmake is installed.
-* `BOOST_ROOT` : Specify a different Boost install directory.
 * `CPPKAFKA_CMAKE_VERBOSE` : Generate verbose output. Default is `OFF`.
 * `CPPKAFKA_BUILD_SHARED` : Build cppkafka as a shared library. Default is `ON`.
 * `CPPKAFKA_DISABLE_TESTS` : Disable build of cppkafka tests. Default is  `OFF`.
 * `CPPKAFKA_DISABLE_EXAMPLES` : Disable build of cppkafka examples. Default is `OFF`.
-* `CPPKAFKA_BOOST_STATIC_LIBS` : Link with Boost static libraries. Default is `ON`.
-* `CPPKAFKA_BOOST_USE_MULTITHREADED` : Use Boost multi-threaded libraries. Default is `ON`.
 * `CPPKAFKA_RDKAFKA_STATIC_LIB` : Link to Rdkafka static library. Default is `OFF`.
 * `CPPKAFKA_CONFIG_DIR` : Install location of the cmake configuration files. Default is `lib/cmake/cppkafka`.
 * `CPPKAFKA_PKGCONFIG_DIR` : Install location of the .pc file. Default is `share/pkgconfig`.

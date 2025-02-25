@@ -37,7 +37,7 @@ namespace cppkafka {
 // Exception
 
 Exception::Exception(string message) 
-: message_(move(message)) {
+: message_(std::move(message)) {
 
 }
 

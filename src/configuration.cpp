@@ -41,7 +41,7 @@ using std::move;
 using std::vector;
 using std::initializer_list;
 using std::chrono::milliseconds;
-using boost::optional;
+using std::optional;
 
 namespace cppkafka {
 
@@ -143,50 +143,50 @@ Configuration& Configuration::set(const string& name, const string& value) {
 }
 
 Configuration& Configuration::set_delivery_report_callback(DeliveryReportCallback callback) {
-    delivery_report_callback_ = move(callback);
+    delivery_report_callback_ = std::move(callback);
     rd_kafka_conf_set_dr_msg_cb(handle_.get(), &delivery_report_callback_proxy);
     return *this;
 }
 
 Configuration& Configuration::set_offset_commit_callback(OffsetCommitCallback callback) {
-    offset_commit_callback_ = move(callback);
+    offset_commit_callback_ = std::move(callback);
     rd_kafka_conf_set_offset_commit_cb(handle_.get(), &offset_commit_callback_proxy);
     return *this;
 }
 
 Configuration& Configuration::set_error_callback(ErrorCallback callback) {
-    error_callback_ = move(callback);
+    error_callback_ = std::move(callback);
     rd_kafka_conf_set_error_cb(handle_.get(), &error_callback_proxy);
     return *this;
 }
 
 Configuration& Configuration::set_throttle_callback(ThrottleCallback callback) {
-    throttle_callback_ = move(callback);
+    throttle_callback_ = std::move(callback);
     rd_kafka_conf_set_throttle_cb(handle_.get(), &throttle_callback_proxy);
     return *this;
 }
 
 Configuration& Configuration::set_log_callback(LogCallback callback) {
-    log_callback_ = move(callback);
+    log_callback_ = std::move(callback);
     rd_kafka_conf_set_log_cb(handle_.get(), &log_callback_proxy);
     return *this;
 }
 
 Configuration& Configuration::set_stats_callback(StatsCallback callback) {
-    stats_callback_ = move(callback);
+    stats_callback_ = std::move(callback);
     rd_kafka_conf_set_stats_cb(handle_.get(), &stats_callback_proxy);
     return *this;
 }
 
 Configuration& Configuration::set_socket_callback(SocketCallback callback) {
-    socket_callback_ = move(callback);
+    socket_callback_ = std::move(callback);
     rd_kafka_conf_set_socket_cb(handle_.get(), &socket_callback_proxy);
     return *this;
 }
 
 #if RD_KAFKA_VERSION >= RD_KAFKA_ADMIN_API_SUPPORT_VERSION
 Configuration& Configuration::set_background_event_callback(BackgroundEventCallback callback) {
-    background_event_callback_ = move(callback);
+    background_event_callback_ = std::move(callback);
     rd_kafka_conf_set_background_event_cb(handle_.get(), &background_event_callback_proxy);
     return *this;
 }

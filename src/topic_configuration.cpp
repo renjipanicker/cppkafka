@@ -92,7 +92,7 @@ TopicConfiguration& TopicConfiguration::set(const string& name, const string& va
 }
 
 TopicConfiguration& TopicConfiguration::set_partitioner_callback(PartitionerCallback callback) {
-    partitioner_callback_ = move(callback);
+    partitioner_callback_ = std::move(callback);
     rd_kafka_topic_conf_set_partitioner_cb(handle_.get(), &partitioner_callback_proxy);
     return *this;
 }

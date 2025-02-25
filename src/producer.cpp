@@ -42,7 +42,7 @@ using std::get;
 namespace cppkafka {
 
 Producer::Producer(Configuration config)
-: KafkaHandleBase(move(config)), message_payload_policy_(PayloadPolicy::COPY_PAYLOAD) {
+: KafkaHandleBase(std::move(config)), message_payload_policy_(PayloadPolicy::COPY_PAYLOAD) {
     char error_buffer[512];
     auto config_handle = get_configuration().get_handle();
     rd_kafka_conf_set_opaque(config_handle, this);
@@ -149,9 +149,10 @@ void Producer::do_produce(const Message& message,
     const Buffer& payload = message.get_payload();
     const Buffer& key = message.get_key();
     const int policy = static_cast<int>(message_payload_policy_);
-    int64_t duration = message.get_timestamp() ? message.get_timestamp().get().get_timestamp().count() : 0;
+    int64_t duration = message.get_timestamp() ? message.get_timestamp()->get_timestamp().count() : 0;
+    auto data = message.get_topic();
     auto result = rd_kafka_producev(get_handle(),
-                                    RD_KAFKA_V_TOPIC(message.get_topic().data()),
+                                    RD_KAFKA_V_TOPIC(data.data()),
                                     RD_KAFKA_V_PARTITION(message.get_partition()),
                                     RD_KAFKA_V_MSGFLAGS(policy),
                                     RD_KAFKA_V_TIMESTAMP(duration),

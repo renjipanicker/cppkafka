@@ -40,7 +40,7 @@ BackoffCommitter::BackoffCommitter(Consumer& consumer)
 }
 
 void BackoffCommitter::set_error_callback(ErrorCallback callback) {
-    callback_ = move(callback);
+    callback_ = std::move(callback);
 }
 
 void BackoffCommitter::commit() {

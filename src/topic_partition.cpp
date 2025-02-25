@@ -50,17 +50,17 @@ TopicPartition::TopicPartition(const char* topic)
 }
 
 TopicPartition::TopicPartition(string topic) 
-: TopicPartition(move(topic), RD_KAFKA_PARTITION_UA) {
+: TopicPartition(std::move(topic), RD_KAFKA_PARTITION_UA) {
 
 }
 
 TopicPartition::TopicPartition(string topic, int partition) 
-: TopicPartition(move(topic), partition, RD_KAFKA_OFFSET_INVALID) {
+: TopicPartition(std::move(topic), partition, RD_KAFKA_OFFSET_INVALID) {
 
 }
 
 TopicPartition::TopicPartition(string topic, int partition, int64_t offset) 
-: topic_(move(topic)), partition_(partition), offset_(offset) {
+: topic_(std::move(topic)), partition_(partition), offset_(offset) {
 
 }
 

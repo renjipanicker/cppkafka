@@ -56,7 +56,7 @@ void Consumer::rebalance_proxy(rd_kafka_t*, rd_kafka_resp_err_t error,
 }
 
 Consumer::Consumer(Configuration config)
-: KafkaHandleBase(move(config)) {
+: KafkaHandleBase(std::move(config)) {
     char error_buffer[512];
     rd_kafka_conf_t* config_handle = get_configuration_handle();
     // Set ourselves as the opaque pointer
@@ -99,15 +99,15 @@ Consumer::~Consumer() {
 }
 
 void Consumer::set_assignment_callback(AssignmentCallback callback) {
-    assignment_callback_ = move(callback);
+    assignment_callback_ = std::move(callback);
 }
 
 void Consumer::set_revocation_callback(RevocationCallback callback) {
-    revocation_callback_ = move(callback);
+    revocation_callback_ = std::move(callback);
 }
 
 void Consumer::set_rebalance_error_callback(RebalanceErrorCallback callback) {
-    rebalance_error_callback_ = move(callback);
+    rebalance_error_callback_ = std::move(callback);
 }
 
 void Consumer::subscribe(const vector<string>& topics) {

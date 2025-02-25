@@ -251,7 +251,7 @@ BasicMessageBuilder<T, C>::BasicMessageBuilder(const Message& message)
                HeaderListType(rd_kafka_headers_copy(message.get_header_list().get_handle())) : HeaderListType()), //copy headers
 #endif
   payload_(Buffer(message.get_payload().get_data(), message.get_payload().get_size())),
-  timestamp_(message.get_timestamp() ? message.get_timestamp().get().get_timestamp() :
+  timestamp_(message.get_timestamp() ? message.get_timestamp()->get_timestamp() :
                                        std::chrono::milliseconds(0)),
   user_data_(message.get_user_data()),
   internal_(message.internal()) {
